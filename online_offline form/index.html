@@ -2,147 +2,236 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Offline Notes App</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Learning Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --pink:     #2e7d32;
+      --pink-dark:#1b5e20;
+      --pink-soft:#e8f5e9;
+      --white:    #ffffff;
+      --gray:     #666;
+      --radius:   14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
+      font-family: 'Nunito', sans-serif;
       min-height: 100vh;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       display: flex;
       justify-content: center;
       align-items: center;
+      background: linear-gradient(135deg, #a8edaa 0%, #d4f5c4 100%);
+      padding: 20px;
     }
 
-    .app {
-      background: linear-gradient(135deg, #ffffff, #ffe6eb);
-      width: 400px;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    .card {
+      background: var(--white);
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      animation: fadeUp 0.5s ease;
     }
 
-    h2 {
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .card header {
       text-align: center;
-      margin-bottom: 20px;
-      color: #c2185b;
+      margin-bottom: 28px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .card header .emoji { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+    .card header h1 { font-size: 1.4rem; font-weight: 800; color: var(--pink-dark); }
+    .card header p  { font-size: 0.82rem; color: var(--gray); margin-top: 4px; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
 
     label {
-      font-weight: bold;
-      color: #555;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    label .hint {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--pink-soft);
+      color: var(--pink);
+      padding: 2px 7px;
+      border-radius: 20px;
     }
 
     input, textarea {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      font-size: 14px;
+      padding: 11px 14px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #333;
+      transition: border-color 0.2s, box-shadow 0.2s;
       outline: none;
+      background: #fafafa;
     }
 
-    textarea {
-      resize: none;
-      height: 100px;
+    textarea { resize: none; height: 110px; }
+
+    input:focus, textarea:focus {
+      border-color: var(--pink);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(46,125,50,0.1);
     }
 
-    input:focus,
-    textarea:focus {
-      border-color: #e91e63;
-      box-shadow: 0 0 6px rgba(233,30,99,0.3);
-    }
-
-    button {
-      padding: 12px;
+    .btn-save {
+      width: 100%;
+      padding: 13px;
       border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #ec407a, #d81b60);
-      color: white;
-      font-size: 15px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: var(--white);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 15px rgba(216,27,96,0.4);
-    }
+    .btn-save:hover  { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,125,50,0.35); }
+    .btn-save:active { transform: translateY(0);    box-shadow: none; }
 
     .status {
-      margin-top: 10px;
+      margin-top: 18px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 0.83rem;
+      font-weight: 600;
       text-align: center;
-      font-size: 13px;
-      color: rgb(11, 50, 11);
+      transition: background 0.3s, color 0.3s;
     }
 
-    .offline {
-      color: red;
+    .status.saved   { background: #e8f5e9; color: #2e7d32; }
+    .status.online  { background: #e3f2fd; color: #1565c0; }
+    .status.offline { background: #f1f8e9; color: var(--pink-dark); }
+
+    .btn-clear {
+      display: block;
+      margin: 10px auto 0;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 0.78rem;
+      color: #bbb;
+      cursor: pointer;
+      text-decoration: underline;
     }
+
+    .btn-clear:hover { color: var(--pink); }
   </style>
 </head>
-
 <body>
 
-  <div class="app">
-    <h2>📘 Offline Learning Notes</h2>
+<div class="card">
 
-    <form id="notesForm">
-      <label>Topic Name</label>
-      <input type="text" id="topic" placeholder="HTML Offline Storage">
+  <header>
+    <span class="emoji">🌿</span>
+    <h1>Offline Learning Notes</h1>
+    <p>Your notes are saved in your browser — no internet needed!</p>
+  </header>
 
-      <label>Your Notes</label>
-      <textarea id="notes" placeholder="Write your learning notes here..."></textarea>
+  <form id="notesForm">
 
-      <button type="submit">Save Notes Offline</button>
-    </form>
+    <div class="field">
+      <label for="topic">
+        Topic Name
+        <span class="hint">e.g. HTML, CSS, JS</span>
+      </label>
+      <input
+        id="topic"
+        type="text"
+        placeholder="What are you studying?"
+        autocomplete="off"
+      />
+    </div>
 
-    <div class="status" id="status"></div>
-  </div>
+    <div class="field">
+      <label for="notes">Your Notes</label>
+      <textarea
+        id="notes"
+        placeholder="Write anything here — key points, summaries, questions..."
+      ></textarea>
+    </div>
 
-  <script>
-    const form = document.getElementById("notesForm");
-    const topicInput = document.getElementById("topic");
-    const notesInput = document.getElementById("notes");
-    const status = document.getElementById("status");
+    <button type="submit" class="btn-save">
+      💾 Save Notes Offline
+    </button>
 
-    // Load saved data on page load
-    window.onload = () => {
-      topicInput.value = localStorage.getItem("topic") || "";
-      notesInput.value = localStorage.getItem("notes") || "";
-      updateStatus();
-    };
+  </form>
 
-    // Save notes
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+  <div class="status online" id="status">Checking connection…</div>
 
-      localStorage.setItem("topic", topicInput.value);
-      localStorage.setItem("notes", notesInput.value);
+  <button class="btn-clear" id="clearBtn">Clear saved notes</button>
 
-      status.textContent = "Notes saved locally (Offline ready ✔)";
-    });
+</div>
 
-    // Online / Offline indicator
-    function updateStatus() {
-      if (navigator.onLine) {
-        status.textContent = "You are online 🌐";
-        status.classList.remove("offline");
-      } else {
-        status.textContent = "You are offline 📵 (App still works)";
-        status.classList.add("offline");
-      }
+<script>
+  const form     = document.getElementById("notesForm");
+  const topicEl  = document.getElementById("topic");
+  const notesEl  = document.getElementById("notes");
+  const statusEl = document.getElementById("status");
+  const clearBtn = document.getElementById("clearBtn");
+
+  window.addEventListener("load", () => {
+    topicEl.value = localStorage.getItem("topic") || "";
+    notesEl.value = localStorage.getItem("notes") || "";
+    updateStatus();
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    localStorage.setItem("topic", topicEl.value);
+    localStorage.setItem("notes", notesEl.value);
+    statusEl.className = "status saved";
+    statusEl.textContent = "✅ Notes saved! They'll be here even if you close the tab.";
+    setTimeout(updateStatus, 3000);
+  });
+
+  clearBtn.addEventListener("click", () => {
+    if (!confirm("Clear all saved notes? This can't be undone.")) return;
+    localStorage.removeItem("topic");
+    localStorage.removeItem("notes");
+    topicEl.value = "";
+    notesEl.value = "";
+    statusEl.className = "status online";
+    statusEl.textContent = "🗑️ Notes cleared.";
+    setTimeout(updateStatus, 2000);
+  });
+
+  function updateStatus() {
+    if (navigator.onLine) {
+      statusEl.className  = "status online";
+      statusEl.textContent = "🌐 You're online — notes still save locally.";
+    } else {
+      statusEl.className  = "status offline";
+      statusEl.textContent = "📵 You're offline — the app still works fine!";
     }
+  }
 
-    window.addEventListener("online", updateStatus);
-    window.addEventListener("offline", updateStatus);
-  </script>
+  window.addEventListener("online",  updateStatus);
+  window.addEventListener("offline", updateStatus);
+</script>
 
 </body>
 </html>
