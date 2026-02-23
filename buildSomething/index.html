@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Something Beautiful</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Figma</div>
+  <div class="nav-links">
+    <a href="#">Product</a>
+    <a href="#">Teams</a>
+    <a href="#">Community</a>
+    <a href="#">Pricing</a>
+  </div>
+  <div class="nav-btn">Get Started</div>
+</nav>
+
+<section class="hero">
+
+  <div class="hero-left">
+    <h1>Build<br>something<br>beautiful.</h1>
+    <p>Design interfaces and prototypes faster with powerful tools and real-time collaboration.</p>
+
+    <div class="buttons">
+      <div class="btn-primary">Get Started</div>
+      <div class="btn-secondary">View Demo →</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <canvas id="heroCanvas" width="520" height="430"></canvas>
+  </div>
+
+</section>
+
+<div class="logos">
+  Trusted by teams at Netflix • Airbnb • Stripe • Shopify
+</div>
+
+<script>
+const canvas = document.getElementById("heroCanvas");
+const ctx = canvas.getContext("2d");
+
+ctx.strokeStyle = "#e2e8f0";
+for (let x = 0; x < canvas.width; x += 36) {
+  ctx.beginPath();
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, canvas.height);
+  ctx.stroke();
+}
+
+for (let y = 0; y < canvas.height; y += 36) {
+  ctx.beginPath();
+  ctx.moveTo(0, y);
+  ctx.lineTo(canvas.width, y);
+  ctx.stroke();
+}
+
+let g1 = ctx.createLinearGradient(70,70,230,170);
+g1.addColorStop(0,"#2563eb");
+g1.addColorStop(1,"#7c3aed");
+ctx.fillStyle = g1;
+ctx.fillRect(70, 70, 160, 100);
+
+let g2 = ctx.createLinearGradient(270,130,430,230);
+g2.addColorStop(0,"#0f172a");
+g2.addColorStop(1,"#334155");
+ctx.fillStyle = g2;
+ctx.fillRect(270, 130, 160, 100);
+
+let g3 = ctx.createLinearGradient(150,240,310,340);
+g3.addColorStop(0,"#10b981");
+g3.addColorStop(1,"#06b6d4");
+ctx.fillStyle = g3;
+ctx.fillRect(150, 240, 160, 100);
+
+ctx.fillStyle = "white";
+ctx.font = "16px Inter";
+ctx.fillText("Design", 115, 125);
+ctx.fillText("Prototype", 285, 185);
+ctx.fillText("Ship", 205, 295);
+</script>
+
+</body>
+</html>
