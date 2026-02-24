@@ -1,0 +1,191 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body - tiled pong background using a simple SVG */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3366cc;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='400'><rect width='200' height='400' fill='%23334466'/><rect x='20' y='50' width='10' height='40' fill='%23aaa'/><rect x='170' y='150' width='10' height='40' fill='%23aaa'/><rect x='20' y='260' width='10' height='40' fill='%23aaa'/><rect x='170' y='340' width='10' height='40' fill='%23aaa'/><rect x='97' y='10' width='6' height='18' fill='%23777'/><rect x='97' y='48' width='6' height='18' fill='%23777'/><rect x='97' y='86' width='6' height='18' fill='%23777'/><rect x='97' y='124' width='6' height='18' fill='%23777'/><rect x='97' y='162' width='6' height='18' fill='%23777'/><rect x='97' y='200' width='6' height='18' fill='%23777'/><rect x='97' y='238' width='6' height='18' fill='%23777'/><rect x='97' y='276' width='6' height='18' fill='%23777'/><rect x='97' y='314' width='6' height='18' fill='%23777'/><rect x='97' y='352' width='6' height='18' fill='%23777'/><rect x='80' y='120' width='7' height='7' fill='%23bbb'/><rect x='130' y='300' width='7' height='7' fill='%23bbb'/></svg>");
+    background-repeat: repeat;
+    min-height: 100vh;
+}
+
+/* Centered Container */
+.container {
+    width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, #b8cce8, #fff 12%, #fff 88%, #b8cce8);
+    min-height: 100vh;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    padding: 12px 0 6px;
+    background: linear-gradient(to bottom, #ccd8e8, #e8eff5);
+}
+
+.logo h1 {
+    font-family: Georgia, serif;
+    font-size: 70px;
+    color: #888;
+    display: inline;
+}
+
+.logo small {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: #333;
+    vertical-align: super;
+}
+
+/* Nav Bar */
+nav {
+    background: #666;
+    padding: 7px 12px;
+    display: flex;
+    gap: 14px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Content Layout */
+.content {
+    display: flex;
+    padding: 12px 15px;
+    gap: 12px;
+}
+
+.left {
+    flex: 1;
+}
+
+.left h2 {
+    font-size: 20px;
+    text-align: center;
+    margin: 12px 0 8px;
+}
+
+.intro {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+/* Game Area */
+.game-area {
+    background: #000;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.game-buttons {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.game-area button {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 18px;
+    padding: 14px 30px;
+    cursor: pointer;
+    min-width: 280px;
+}
+
+.game-area button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Game Bottom Controls */
+.game-controls {
+    padding: 15px 20px;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.game-controls p {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.game-controls .options {
+    font-size: 20px;
+}
+
+.game-controls .stats {
+    font-size: 10px;
+}
+
+/* Promo */
+.promo {
+    text-align: center;
+    font-size: 14px;
+    margin: 18px 0;
+}
+
+.promo a,
+footer a {
+    color: blue;
+}
+
+/* About Section */
+.about {
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 5px;
+}
+
+.about p {
+    margin-bottom: 14px;
+}
+
+/* Sidebar */
+aside {
+    width: 180px;
+    flex-shrink: 0;
+}
+
+.ad-box {
+    width: 160px;
+    min-height: 600px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding-top: 20px;
+    color: #999;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    margin: 0 15px;
+    font-size: 13px;
+    line-height: 1.8;
+}

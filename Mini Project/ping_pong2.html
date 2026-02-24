@@ -1,0 +1,266 @@
+Skip to content
+Aareen80085
+Ping-Pong
+Repository navigation
+Code
+Issues
+Pull requests
+Agents
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Files
+Go to file
+t
+.gitattributes
+README.md
+index.html
+style.css
+Ping-Pong
+/index.html
+Aareen80085
+Aareen80085
+Update index.html
+0397dd7
+ · 
+30 minutes ago
+
+Code
+
+Blame
+231 lines (196 loc) · 9.76 KB
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="logo">
+            <h1>Pong Game<small>.ORG</small></h1>
+        </div>
+
+        <!-- Nav Bar -->
+        <nav>
+            <a href="#">Pong Game</a>
+            <a href="https://www.ponggame.org/neon-pong">Neon Pong</a>
+            <a href="https://www.ponggame.org/3d-pong">3D Pong</a>
+            <a href="https://www.ponggame.org/air-hockey">Air Hockey</a>
+            <a href="https://www.ponggame.org/bubbles">Bubbles</a>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="left">
+                <h2>Pong Game</h2>
+                <p class="intro">
+                    Welcome to PongGame.org, In this site, you can find many free versions of the game, one of the
+                    first video games ever created.<br>
+                    In the game below, use the mouse or keyboard to control the paddle, Press P to pause the game,
+                    or ESC to go back to the main menu.
+                </p>
+
+                <!-- Game Area -->
+                <div class="game-area">
+                    <div class="game-buttons">
+
+                        <button id="2player" onclick="startGame()">Play V/S</button>
+                    </div>
+                    <div class="game-controls">
+                        <p>○ SOUND</p>
+                        <p class="options">OPTIONS</p>
+                        <p class="stats">SINGLE PLAYER LIFETIME WINS: 0 OF 0 (reset)</p>
+                    </div>
+                </div>
+
+                <p class="promo">
+                    Once you're done playing Pong, there are some other games you can play online,
+                    <a href="https://www.ponggame.org/contact">such as Spider Solitaire and Freecell</a>
+                </p>
+
+                <h2>About Pong</h2>
+                <div class="about">
+                    <p>
+                        Pong is one of the first computer games that ever created, this simple "tennis like" game
+                        features two paddles and a ball, the goal is to defeat your opponent by being the first one
+                        to gain10 point, a player gets a point once the opponent misses a ball. The game can be
+                        played with two human players, or one player against a computer controlled paddle. The game
+                        was originally developed by Allan Alcorn and released in 1972 by Atari corporations. Soon,
+                        Pong became a huge success, and became the first commercially successful game, on 1975,
+                        Atari release a home edition of Pong (the first version was played on Arcade machines) which
+                        sold 150,000 units. Today, the Pong Game is considered to be the game which started the
+                        video games industry, as it proved that the video games market can produce significant
+                        revenues.
+                    </p>
+                    <p>
+                        Nolan Bushnell founded Atari at 1972 in order to create games and ideas and license them to
+                        other companies for mass production. Pong was actually a training exercise for one of
+                        Atari's employees - Allan Alcorn, once it was finished, Nolan made few adjustments in order
+                        to make the game more interesting (like changing the ball's return angle) and added simple
+                        sound effects. The first Pong Arcade machine was installed on a local bar, and it was so
+                        successful that Atari decided to produce and sell the game by themselves, rather then
+                        licensing it to other companies. In 1973 the company finally got a line of credit from Wells
+                        Fargo and started an assembly line, by the end of the year, Pong arcade machines were
+                        shipped to location all over the U.S. as well as to other countries.<br>
+                        Similar to other famous games such as Pacman and Tetris, Pong became one of the symbols of
+                        computer gaming.
+                    </p>
+                    <p>
+                        Atari sold more then 35000 Pong machines, this figure is only about one third of the total
+                        number of Pong machines that were sold globally, since many Pong clones appeared shortly
+                        after the debut of the original Atari Pong game. The way Atari chose to compete with the
+                        Pong Game clones was to produce more innovative games such as "Double Pong" which was a pong
+                        game with four players, two in every side and a bigger screen.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside>
+                <div class="ad-box">Advertisement</div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <a href="https://www.ponggame.org/contact">Contact Us</a><br>
+            While using this site, you must agree to
+            <a href="https://www.ponggame.org/terms">PongGame.org Terms of use Policy</a> |
+            <a href="https://www.ponggame.org/privacy-policy">Privacy Policy</a>
+        </footer>
+
+    </div>
+
+    <!-- Game Section (hidden until 2player button is clicked) -->
+    <div id="game-section"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0f172a; z-index:999; display:none; justify-content:center; align-items:center;">
+        <canvas id="game" width="800" height="400"
+            style="background:#020617; border:3px solid #38bdf8; box-shadow:0 0 20px #38bdf8;"></canvas>
+    </div>
+
+
+    <script>
+        function startGame() {
+            // Hide the landing page
+            document.querySelector('.container').style.display = 'none';
+
+            // Show the game section
+            const gameSection = document.getElementById('game-section');
+            gameSection.style.display = 'flex';
+            gameSection.style.justifyContent = 'center';
+            gameSection.style.alignItems = 'center';
+
+            const canvas = document.getElementById("game");
+            const ctx = canvas.getContext("2d");
+
+            // Game objects
+            const paddleHeight = 80;
+            const paddleWidth = 10;
+
+            const leftPaddle = {
+                x: 20,
+                y: canvas.height / 2 - paddleHeight / 2,
+                speed: 6
+            };
+
+            const rightPaddle = {
+                x: canvas.width - 30,
+                y: canvas.height / 2 - paddleHeight / 2,
+                speed: 6
+            };
+
+            const ball = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                radius: 7,
+                speedX: 5,
+                speedY: 5
+            };
+
+            // Controls
+            const keys = {};
+            document.addEventListener("keydown", e => keys[e.key] = true);
+            document.addEventListener("keyup", e => keys[e.key] = false);
+
+            // Draw functions
+            function drawRect(x, y, w, h) {
+                ctx.fillStyle = "#e5e7eb";
+                ctx.fillRect(x, y, w, h);
+            }
+
+            function drawBall(x, y, r) {
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fillStyle = "#38bdf8";
+                ctx.fill();
+            }
+
+            function drawNet() {
+                for (let i = 0; i < canvas.height; i += 15) {
+                    drawRect(canvas.width / 2 - 1, i, 2, 10);
+                }
+            }
+
+            // Game logic
+            function movePaddles() {
+                if (keys["w"] && leftPaddle.y > 0) leftPaddle.y -= leftPaddle.speed;
+                if (keys["s"] && leftPaddle.y < canvas.height - paddleHeight) leftPaddle.y += leftPaddle.speed;
+                if (keys["ArrowUp"] && rightPaddle.y > 0) rightPaddle.y -= rightPaddle.speed;
+                if (keys["ArrowDown"] && rightPaddle.y < canvas.height - paddleHeight) rightPaddle.y += rightPaddle.speed;
+            }
+
+            function moveBall() {
+                ball.x += ball.speedX;
+                ball.y += ball.speedY;
+
+                if (ball.y <= 0 || ball.y >= canvas.height) ball.speedY *= -1;
+
+                if (
+                    ball.x - ball.radius < leftPaddle.x + paddleWidth &&
+                    ball.y > leftPaddle.y &&
+                    ball.y < leftPaddle.y + paddleHeight
+                ) ball.speedX *= -1;
+
+                if (
+                    ball.x + ball.radius > rightPaddle.x &&
+                    ball.y > rightPaddle.y &&
+                    ball.y < rightPaddle.y + paddleHeight
+                ) ball.speedX *= -1;
+
+                if (ball.x < 0 || ball.x > canvas.width) {
+                    ball.x = canvas.width / 2;
+                    ball.y = canvas.height / 2;
+                    ball.speedX *= -1;
+                }
+            }
+
+            // Main loop
+            function gameLoop() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawNet();
+                drawRect(leftPaddle.x, leftPaddle.y, paddleWidth, paddleHeight);
+                drawRect(rightPaddle.x, rightPaddle.y, paddleWidth, paddleHeight);
+                drawBall(ball.x, ball.y, ball.radius);
+                movePaddles();
+                moveBall();
+                requestAnimationFrame(gameLoop);
+            }
+
+            gameLoop();
+        }
+    </script>
+
+
+</html>
+ 
